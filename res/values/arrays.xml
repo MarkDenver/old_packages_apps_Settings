@@ -399,4 +399,22 @@
         <item>silent</item>
         <item>notsilent</item>
     </string-array>
+
+    <string-array name="notification_color_entries">
+        <item>Red</item>
+        <item>Blue</item>
+        <item>Green</item>
+	<item>White</item>
+	<item>Purple</item>
+	<item>Cyan</item>
+    </string-array>
+    
+    <string-array name="notification_color_values">
+        <item>#ffff0000</item>
+        <item>#ff0000ff</item>
+        <item>#ff00ff00</item>
+	<item>#ffffffff</item>
+	<item>#ff782B66</item>
+	<item>#ff00fff0</item>
+    </string-array>
 </resources>

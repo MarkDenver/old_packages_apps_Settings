@@ -1058,10 +1058,6 @@
     <string name="notification_sound_title">Notification ringtone</string>
     <!-- Sound settings screen, setting option summary text -->
     <string name="notification_sound_summary">""</string>
-    <!-- Sound settings screen, notification light repeat pulsing title -->
-    <string name="notification_pulse_title">Pulse notification light</string>
-    <!-- Sound settings screen, notification light repeat pulsing summary -->
-    <string name="notification_pulse_summary">Pulse trackball light repeatedly for new notifications</string>
     <!-- Sound settings screen, the title of the volume bar to adjust the incoming call volume -->
     <string name="incoming_call_volume_title">Ringtone</string>
     <!-- Sound settings screen, the title of the volume bar to adjust the notification volume -->
@@ -2664,10 +2660,23 @@ found in the list of installed applications.</string>
     <string name="additional_system_update_settings_list_item_title">Additional system updates</string>
 
     <!-- Being Mark's specific strings -->
+    <!-- Display settings -->
+    <string name="notification_color_title">Notification color</string>
+    <string name="notification_color_summary">Change the LED notification color</string>
+    <string name="notification_pulse_title">Pulse notification light</string>
+    <string name="notification_pulse_summary">Pulse trackball light repeatedly for new notifications</string>
+    <string name="notification_blink_title">Blink notification light</string>
+    <string name="notification_blink_summary">Blink the LED notification repeatedly</string>
+    <string name="notification_always_on_title">Always enable notification light</string>
+    <string name="notification_always_on_summary">Enable notification LED while screen is on</string>
+    <string name="notification_charging_title">Charging light</string>
+    <string name="notification_charging_summary">Enable the amber light while charging</string>
+
     <!-- Interface settings -->
     <string name="interface_settings">Interface settings</string>
     <string name="interface_settings_title">Interface</string>
 
     <string name="trackball_wake_screen">Trackpad wake</string>
     <string name="trackball_wake_screen_summary">Turn on the screen by pressing the optical joystick</string>
+    <!-- End Mark's specific strings -->
 </resources>

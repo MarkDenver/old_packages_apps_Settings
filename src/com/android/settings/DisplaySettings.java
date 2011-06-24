@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import android.app.admin.DevicePolicyManager;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.os.ServiceManager;
@@ -30,8 +31,10 @@ import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
+import android.provider.Settings.SettingNotFoundException;
 import android.util.Log;
 import android.view.IWindowManager;
 
@@ -41,14 +44,28 @@ public class DisplaySettings extends PreferenceActivity implements
 
     /** If there is no setting in the provider, use this. */
     private static final int FALLBACK_SCREEN_TIMEOUT_VALUE = 30000;
+			
+	private static final String KEY_DISPLAY_SETTINGS = "display_settings";
 
     private static final String KEY_SCREEN_TIMEOUT = "screen_timeout";
     private static final String KEY_ANIMATIONS = "animations";
     private static final String KEY_ACCELEROMETER = "accelerometer";
+	private static final String KEY_NOTIFICATION_COLOR = "notification_color";
+	private static final String KEY_NOTIFICATION_PULSE = "notification_pulse";
+	private static final String KEY_NOTIFICATION_BLINK = "notification_blink";
+	private static final String KEY_NOTIFICATION_ALWAYS_ON = "notification_always_on";
+	private static final String KEY_NOTIFICATION_CHARGING = "notification_charging";
 
+    private PreferenceGroup mDisplaySettings;
+			
     private ListPreference mAnimations;
     private CheckBoxPreference mAccelerometer;
     private float[] mAnimationScales;
+	private ListPreference mNotificationColor;
+	private CheckBoxPreference mNotificationPulse;
+	private CheckBoxPreference mNotificationBlink;
+	private CheckBoxPreference mNotificationAlwaysOn;
+	private CheckBoxPreference mNotificationCharging;
 
     private IWindowManager mWindowManager;
 
@@ -64,6 +81,56 @@ public class DisplaySettings extends PreferenceActivity implements
         mAnimations.setOnPreferenceChangeListener(this);
         mAccelerometer = (CheckBoxPreference) findPreference(KEY_ACCELEROMETER);
         mAccelerometer.setPersistent(false);
+
+        mDisplaySettings = (PreferenceGroup) findPreference(KEY_DISPLAY_SETTINGS);
+		
+		mNotificationColor = (ListPreference) mDisplaySettings.findPreference(KEY_NOTIFICATION_COLOR);
+		mNotificationColor.setOnPreferenceChangeListener(this);
+        mNotificationPulse = (CheckBoxPreference)
+		mDisplaySettings.findPreference(KEY_NOTIFICATION_PULSE);
+        mNotificationBlink = (CheckBoxPreference)
+		mDisplaySettings.findPreference(KEY_NOTIFICATION_BLINK);
+        mNotificationAlwaysOn = (CheckBoxPreference)
+		mDisplaySettings.findPreference(KEY_NOTIFICATION_ALWAYS_ON);
+        mNotificationCharging = (CheckBoxPreference)
+		mDisplaySettings.findPreference(KEY_NOTIFICATION_CHARGING);
+		
+        boolean amberGreenLight = true ;//getResources().getBoolean(
+		//com.android.internal.R.bool.config_amber_green_light);
+		
+        if (amberGreenLight) {
+            mDisplaySettings.removePreference(mNotificationPulse);
+			
+            mNotificationBlink.setChecked(Settings.System.getInt(resolver,
+				Settings.System.NOTIFICATION_LIGHT_BLINK, 1) == 1);
+            mNotificationBlink.setOnPreferenceChangeListener(this);
+			
+            mNotificationAlwaysOn.setChecked(Settings.System.getInt(resolver,
+				Settings.System.NOTIFICATION_LIGHT_ALWAYS_ON, 1) == 1);
+            mNotificationAlwaysOn.setOnPreferenceChangeListener(this);
+			
+            mNotificationCharging.setChecked(Settings.System.getInt(resolver,
+				Settings.System.NOTIFICATION_LIGHT_CHARGING, 1) == 1);
+            mNotificationCharging.setOnPreferenceChangeListener(this);
+			
+        } else {
+            mDisplaySettings.removePreference(mNotificationBlink);
+            mDisplaySettings.removePreference(mNotificationAlwaysOn);
+            mDisplaySettings.removePreference(mNotificationCharging);
+			
+            if (mNotificationPulse != null &&
+				getResources().getBoolean(R.bool.has_intrusive_led) == false) {
+                mDisplaySettings.removePreference(mNotificationPulse);
+            } else {
+                try {
+                    mNotificationPulse.setChecked(Settings.System.getInt(resolver,
+						Settings.System.NOTIFICATION_LIGHT_PULSE) == 1);
+                    mNotificationPulse.setOnPreferenceChangeListener(this);
+                } catch (SettingNotFoundException snfe) {
+                    Log.e(TAG, Settings.System.NOTIFICATION_LIGHT_PULSE + " not found");
+                }
+            }
+        }
 
         ListPreference screenTimeoutPreference =
             (ListPreference) findPreference(KEY_SCREEN_TIMEOUT);
@@ -165,7 +232,27 @@ public class DisplaySettings extends PreferenceActivity implements
             Settings.System.putInt(getContentResolver(),
                     Settings.System.ACCELEROMETER_ROTATION,
                     mAccelerometer.isChecked() ? 1 : 0);
+		} else if (preference == mNotificationPulse) {
+            boolean value = mNotificationPulse.isChecked();
+            Settings.System.putInt(getContentResolver(),
+					Settings.System.NOTIFICATION_LIGHT_PULSE, value ? 1 : 0);
+			
+        } else if (preference == mNotificationBlink) {
+            boolean value = mNotificationBlink.isChecked();
+            Settings.System.putInt(getContentResolver(),
+					Settings.System.NOTIFICATION_LIGHT_BLINK, value ? 1 : 0);
+			
+        } else if (preference == mNotificationAlwaysOn) {
+            boolean value = mNotificationAlwaysOn.isChecked();
+            Settings.System.putInt(getContentResolver(),
+					Settings.System.NOTIFICATION_LIGHT_ALWAYS_ON, value ? 1 : 0);
+			
+        } else if (preference == mNotificationCharging) {
+            boolean value = mNotificationCharging.isChecked();
+            Settings.System.putInt(getContentResolver(),
+					Settings.System.NOTIFICATION_LIGHT_CHARGING, value ? 1 : 0);
         }
+
         return true;
     }
 
@@ -199,6 +286,15 @@ public class DisplaySettings extends PreferenceActivity implements
                 Log.e(TAG, "could not persist screen timeout setting", e);
             }
         }
+		if (KEY_NOTIFICATION_COLOR.equals(key)) {
+			try {
+				int color = Color.parseColor((String) objValue);
+				Settings.System.putInt(getContentResolver(),
+							Settings.System.NOTIFICATION_LIGHT_COLOR, color);
+			} catch (NumberFormatException e) {
+				Log.e(TAG, "could not persist notification color setting", e);
+			}
+		}
 
         return true;
     }

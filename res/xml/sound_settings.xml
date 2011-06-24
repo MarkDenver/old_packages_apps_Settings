@@ -69,12 +69,6 @@
             android:persistent="false"
             android:ringtoneType="notification" />
 
-    <CheckBoxPreference
-            android:key="notification_pulse"
-            android:title="@string/notification_pulse_title"
-            android:summary="@string/notification_pulse_summary"
-            android:persistent="false" />
-
     <PreferenceCategory
             android:title="@string/sound_category_feedback_title"/>
 
