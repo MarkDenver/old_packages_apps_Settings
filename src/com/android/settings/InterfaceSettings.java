@@ -34,8 +34,16 @@ public class InterfaceSettings extends PreferenceActivity {
     private static final String TAG = "InterfaceSettings";
 	
 	private static final String TRACKBALL_WAKE = "trackball_wake_screen";
+	private static final String EXP_WIDGET = "expanded_power_widget";
+	private static final String EXP_HIDE_ONCHANGE = "expanded_hide_onchange";
+	private static final String POWER_PICKER = "power_picker";
+	private static final String POWER_ORDER = "widget_order";
 
 	private CheckBoxPreference mTrackballWake;
+	private CheckBoxPreference mExpWidget;
+	private CheckBoxPreference mExpHideOnchange;
+	private PreferenceScreen mPowerPicker;
+	private PreferenceScreen mPowerOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +55,17 @@ public class InterfaceSettings extends PreferenceActivity {
 		mTrackballWake = (CheckBoxPreference)findPreference(TRACKBALL_WAKE);
 		mTrackballWake.setChecked(Settings.System.getInt(resolver,
 								  Settings.System.TRACKBALL_WAKE_SCREEN, 1) == 1);
+
+		mExpWidget = (CheckBoxPreference)findPreference(EXP_WIDGET);
+		mExpWidget.setChecked(Settings.System.getInt(resolver,
+							  Settings.System.EXPANDED_VIEW_WIDGET, 1) == 1);
+		
+		mExpHideOnchange = (CheckBoxPreference)findPreference(EXP_HIDE_ONCHANGE);
+		mExpHideOnchange.setChecked(Settings.System.getInt(resolver,
+									Settings.System.EXPANDED_HIDE_ONCHANGE, 0) == 1);
+		
+		mPowerPicker = (PreferenceScreen)findPreference(POWER_PICKER);
+		mPowerOrder = (PreferenceScreen)findPreference(POWER_ORDER);
     }
 
     @Override
@@ -60,6 +79,18 @@ public class InterfaceSettings extends PreferenceActivity {
 			Settings.System.putInt(getContentResolver(),
 					Settings.System.TRACKBALL_WAKE_SCREEN,
 					mTrackballWake.isChecked() ? 1 : 0);
+        } else if (preference == mExpWidget) {
+			Settings.System.putInt(getContentResolver(),
+					Settings.System.EXPANDED_VIEW_WIDGET,
+					mExpWidget.isChecked() ? 1 : 0);
+        } else if (preference == mExpHideOnchange) {
+			Settings.System.putInt(getContentResolver(),
+					Settings.System.EXPANDED_HIDE_ONCHANGE,
+					mExpHideOnchange.isChecked() ? 1 : 0);
+        } else if (preference == mPowerPicker) {
+			startActivity(mPowerPicker.getIntent());
+		} else if (preference == mPowerOrder) {
+			startActivity(mPowerOrder.getIntent());
 		}
 		
         return true;

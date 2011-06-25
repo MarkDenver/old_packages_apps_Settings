@@ -54,7 +54,6 @@ public class SoundSettings extends PreferenceActivity implements
     private static final String KEY_HAPTIC_FEEDBACK = "haptic_feedback";
     private static final String KEY_EMERGENCY_TONE = "emergency_tone";
     private static final String KEY_SOUND_SETTINGS = "sound_settings";
-    private static final String KEY_NOTIFICATION_PULSE = "notification_pulse";
     private static final String KEY_LOCK_SOUNDS = "lock_sounds";
 
     private static final String VALUE_VIBRATE_NEVER = "never";
@@ -75,7 +74,6 @@ public class SoundSettings extends PreferenceActivity implements
     private CheckBoxPreference mDtmfTone;
     private CheckBoxPreference mSoundEffects;
     private CheckBoxPreference mHapticFeedback;
-    private CheckBoxPreference mNotificationPulse;
     private CheckBoxPreference mLockSounds;
 
     private AudioManager mAudioManager;
@@ -134,22 +132,6 @@ public class SoundSettings extends PreferenceActivity implements
             emergencyTonePreference.setValue(String.valueOf(Settings.System.getInt(
                 resolver, Settings.System.EMERGENCY_TONE, FALLBACK_EMERGENCY_TONE_VALUE)));
             emergencyTonePreference.setOnPreferenceChangeListener(this);
-        }
-
-        mSoundSettings = (PreferenceGroup) findPreference(KEY_SOUND_SETTINGS);
-        mNotificationPulse = (CheckBoxPreference)
-                mSoundSettings.findPreference(KEY_NOTIFICATION_PULSE);
-        if (mNotificationPulse != null &&
-                getResources().getBoolean(R.bool.has_intrusive_led) == false) {
-            mSoundSettings.removePreference(mNotificationPulse);
-        } else {
-            try {
-                mNotificationPulse.setChecked(Settings.System.getInt(resolver,
-                        Settings.System.NOTIFICATION_LIGHT_PULSE) == 1);
-                mNotificationPulse.setOnPreferenceChangeListener(this);
-            } catch (SettingNotFoundException snfe) {
-                Log.e(TAG, Settings.System.NOTIFICATION_LIGHT_PULSE + " not found");
-            }
         }
 
     }
@@ -308,10 +290,6 @@ public class SoundSettings extends PreferenceActivity implements
             Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_SOUNDS_ENABLED,
                     mLockSounds.isChecked() ? 1 : 0);
 
-        } else if (preference == mNotificationPulse) {
-            boolean value = mNotificationPulse.isChecked();
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.NOTIFICATION_LIGHT_PULSE, value ? 1 : 0);
         }
 
         return true;
