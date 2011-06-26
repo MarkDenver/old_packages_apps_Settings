@@ -485,16 +485,6 @@
         <item>5</item>
     </string-array>
 
-    <string-array name="entries_flash_widget" translatable="false">
-        <item>Normal</item>
-        <item>High / Death Ray</item>
-    </string-array>
-
-    <string-array name="values_flash_widget" translatable="false">
-        <item>0</item>
-        <item>1</item>
-    </string-array>
-
     <string-array name="notification_color_entries">
         <item>Red</item>
         <item>Blue</item>

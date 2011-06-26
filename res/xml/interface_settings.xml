@@ -18,10 +18,24 @@
         android:title="@string/interface_settings"
         xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
                 
+        <PreferenceCategory
+            android:title="@string/lockscreen_options">
+            
+            <CheckBoxPreference
+                android:key="lockscreen_music_controls"
+                android:title="@string/lockscreen_music_controls" />
+            <CheckBoxPreference
+                android:key="lockscreen_always_music_controls"
+                android:title="@string/lockscreen_always_music_controls"
+                android:summary="@string/lockscreen_always_music_controls_summary"
+                android:dependency="lockscreen_music_controls" />
+                
             <CheckBoxPreference
                 android:key="trackball_wake_screen"
                 android:title="@string/trackball_wake_screen"
                 android:summary="@string/trackball_wake_screen_summary" />
+                
+        </PreferenceCategory>
                 
         <PreferenceCategory
             android:title="@string/notification_power_widget">

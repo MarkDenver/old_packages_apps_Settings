@@ -33,7 +33,6 @@ public class PowerWidgetActivity extends PreferenceActivity implements OnPrefere
     private static final String EXP_NETWORK_MODE = "pref_network_mode";
     private static final String EXP_SCREENTIMEOUT_MODE = "pref_screentimeout_mode";
     private static final String EXP_RING_MODE = "pref_ring_mode";
-    private static final String EXP_FLASH_MODE = "pref_flash_mode";
 
     private HashMap<CheckBoxPreference, String> mCheckBoxPrefs = new HashMap<CheckBoxPreference, String>();
 
@@ -41,7 +40,6 @@ public class PowerWidgetActivity extends PreferenceActivity implements OnPrefere
     ListPreference mNetworkMode;
     ListPreference mScreentimeoutMode;
     ListPreference mRingMode;
-    ListPreference mFlashMode;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,8 +57,6 @@ public class PowerWidgetActivity extends PreferenceActivity implements OnPrefere
         mScreentimeoutMode.setOnPreferenceChangeListener(this);
         mRingMode = (ListPreference) prefSet.findPreference(EXP_RING_MODE);
         mRingMode.setOnPreferenceChangeListener(this);
-        mFlashMode = (ListPreference) prefSet.findPreference(EXP_FLASH_MODE);
-        mFlashMode.setOnPreferenceChangeListener(this);
 
         PreferenceCategory prefButtons = (PreferenceCategory) prefSet.findPreference(BUTTONS_CATEGORY);
 
@@ -96,11 +92,7 @@ public class PowerWidgetActivity extends PreferenceActivity implements OnPrefere
             mCheckBoxPrefs.put(cb, button.getId());
 
             // specific checks for availability on some platforms
-            if (PowerWidgetUtil.BUTTON_FLASHLIGHT.equals(button.getId()) &&
-                    !getResources().getBoolean(R.bool.has_led_flash)) { // disable flashlight if it's not supported
-                cb.setEnabled(false);
-                mFlashMode.setEnabled(false);
-            } else if (PowerWidgetUtil.BUTTON_NETWORKMODE.equals(button.getId())) {
+            if (PowerWidgetUtil.BUTTON_NETWORKMODE.equals(button.getId())) {
                 // some phones run on networks not supported by this button, so disable it
                 int network_state = -99;
 
@@ -162,9 +154,7 @@ public class PowerWidgetActivity extends PreferenceActivity implements OnPrefere
         } else if(preference == mScreentimeoutMode) {
             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_SCREENTIMEOUT_MODE, value);
         } else if(preference == mRingMode) {
-            Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_RING_MODE, value);
-        } else if(preference == mFlashMode) {
-            Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_FLASH_MODE, value);
+            Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_RING_MODE, value);;
         }
         return true;
     }

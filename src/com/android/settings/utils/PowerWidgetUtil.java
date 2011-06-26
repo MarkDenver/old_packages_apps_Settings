@@ -44,8 +44,6 @@ public class PowerWidgetUtil {
                 BUTTON_BLUETOOTH, R.string.title_toggle_bluetooth, "com.android.systemui:drawable/stat_bluetooth_on"));
         BUTTONS.put(BUTTON_BRIGHTNESS, new PowerWidgetUtil.ButtonInfo(
                 BUTTON_BRIGHTNESS, R.string.title_toggle_brightness, "com.android.systemui:drawable/stat_brightness_on"));
-        BUTTONS.put(BUTTON_FLASHLIGHT, new PowerWidgetUtil.ButtonInfo(
-                BUTTON_FLASHLIGHT, R.string.title_toggle_flashlight, "com.android.systemui:drawable/stat_flashlight_on"));
         BUTTONS.put(BUTTON_GPS, new PowerWidgetUtil.ButtonInfo(
                 BUTTON_GPS, R.string.title_toggle_gps, "com.android.systemui:drawable/stat_gps_on"));
         BUTTONS.put(BUTTON_LOCKSCREEN, new PowerWidgetUtil.ButtonInfo(

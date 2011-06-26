@@ -29,16 +29,21 @@ import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.util.Log;
 
-public class InterfaceSettings extends PreferenceActivity {
+public class InterfaceSettings extends PreferenceActivity implements
+	Preference.OnPreferenceChangeListener {
 		
     private static final String TAG = "InterfaceSettings";
 	
+	private static final String MUSIC_CONTROLS = "lockscreen_music_controls";
+	private static final String PERSISTENT_MUSIC_CONTROLS = "lockscreen_always_music_controls";
 	private static final String TRACKBALL_WAKE = "trackball_wake_screen";
 	private static final String EXP_WIDGET = "expanded_power_widget";
 	private static final String EXP_HIDE_ONCHANGE = "expanded_hide_onchange";
 	private static final String POWER_PICKER = "power_picker";
 	private static final String POWER_ORDER = "widget_order";
 
+	private CheckBoxPreference mMusicControls;
+	private CheckBoxPreference mPersistentMusicControls;
 	private CheckBoxPreference mTrackballWake;
 	private CheckBoxPreference mExpWidget;
 	private CheckBoxPreference mExpHideOnchange;
@@ -51,6 +56,13 @@ public class InterfaceSettings extends PreferenceActivity {
         ContentResolver resolver = getContentResolver();
 
         addPreferencesFromResource(R.xml.interface_settings);
+
+		mMusicControls = (CheckBoxPreference)findPreference(MUSIC_CONTROLS);
+		mMusicControls.setChecked(Settings.System.getInt(resolver,
+								  Settings.System.LOCKSCREEN_MUSIC_CONTROLS, 1) == 1);
+		mPersistentMusicControls = (CheckBoxPreference)findPreference(PERSISTENT_MUSIC_CONTROLS);
+		mPersistentMusicControls.setChecked(Settings.System.getInt(resolver,
+											Settings.System.LOCKSCREEN_ALWAYS_MUSIC_CONTROLS, 1) == 1);
 		
 		mTrackballWake = (CheckBoxPreference)findPreference(TRACKBALL_WAKE);
 		mTrackballWake.setChecked(Settings.System.getInt(resolver,
@@ -75,7 +87,15 @@ public class InterfaceSettings extends PreferenceActivity {
 	
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-		if (preference == mTrackballWake) {
+		if (preference == mMusicControls) {
+			Settings.System.putInt(getContentResolver(),
+					Settings.System.LOCKSCREEN_MUSIC_CONTROLS,
+					mMusicControls.isChecked() ? 1 : 0);
+        } else if (preference == mPersistentMusicControls) {
+			Settings.System.putInt(getContentResolver(),
+					Settings.System.LOCKSCREEN_ALWAYS_MUSIC_CONTROLS,
+					mPersistentMusicControls.isChecked() ? 1 : 0);
+        } else if (preference == mTrackballWake) {
 			Settings.System.putInt(getContentResolver(),
 					Settings.System.TRACKBALL_WAKE_SCREEN,
 					mTrackballWake.isChecked() ? 1 : 0);
@@ -96,4 +116,9 @@ public class InterfaceSettings extends PreferenceActivity {
         return true;
     }
 	
+	@Override
+	public boolean onPreferenceChange(Preference preference, Object objValue) {
+		final String key = preference.getKey();
+	return true;
+	}
 }

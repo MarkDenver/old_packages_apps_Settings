@@ -22,7 +22,6 @@ import com.android.settings.widget.buttons.AirplaneButton;
 import com.android.settings.widget.buttons.AutoRotateButton;
 import com.android.settings.widget.buttons.BluetoothButton;
 import com.android.settings.widget.buttons.BrightnessButton;
-import com.android.settings.widget.buttons.FlashlightButton;
 import com.android.settings.widget.buttons.GPSButton;
 import com.android.settings.widget.buttons.LockScreenButton;
 import com.android.settings.widget.buttons.MobileDataButton;
@@ -202,7 +201,6 @@ public class SettingsAppWidgetProvider extends AppWidgetProvider {
         ScreenTimeoutButton.getInstance().updateState(context, globalPreferences, appWidgetIds);
         AirplaneButton.getInstance().updateState(context, globalPreferences, appWidgetIds);
         LockScreenButton.getInstance().updateState(context, globalPreferences, appWidgetIds);
-        FlashlightButton.getInstance().updateState(context, globalPreferences, appWidgetIds);
         BrightnessButton.getInstance().updateState(context, globalPreferences, appWidgetIds);
     }
 
@@ -269,8 +267,6 @@ public class SettingsAppWidgetProvider extends AppWidgetProvider {
             ScreenTimeoutButton.getInstance().updateView(context, views, globalPreferences,
                     widgetPreferences, appWidgetId);
             BrightnessButton.getInstance().updateView(context, views, globalPreferences,
-                    widgetPreferences, appWidgetId);
-            FlashlightButton.getInstance().updateView(context, views, globalPreferences,
                     widgetPreferences, appWidgetId);
             LockScreenButton.getInstance().updateView(context, views, globalPreferences,
                     widgetPreferences, appWidgetId);
@@ -351,9 +347,6 @@ public class SettingsAppWidgetProvider extends AppWidgetProvider {
             } else if (buttonId == WidgetButton.BUTTON_BRIGHTNESS) {
                 logD("Received brightness change request");
                 BrightnessButton.getInstance().toggleState(context);
-            } else if (buttonId == WidgetButton.BUTTON_FLASHLIGHT) {
-                logD("Received flahslight change request");
-                FlashlightButton.getInstance().toggleState(context);
             } else if (buttonId == WidgetButton.BUTTON_LOCK_SCREEN) {
                 logD("Received Lock Screen change request");
                 LockScreenButton.getInstance().toggleState(context);
