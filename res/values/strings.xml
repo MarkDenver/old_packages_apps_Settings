@@ -2672,6 +2672,7 @@ found in the list of installed applications.</string>
     <string name="toggleAutoRotate">Orientation</string>
     <string name="toggleScreenTimeout">Screen Timeout</string>
     <string name="toggleAirplane">Airplane</string>
+    <string name="toggleFlashlight">Flashlight</string>
     <string name="toggleLockScreen">Lock Screen</string>
 
     <string name="toggleWifiDescription">Enable/disable Wifi</string>
@@ -2686,6 +2687,7 @@ found in the list of installed applications.</string>
     <string name="toggleAutoRotateDescription">Enable/disable orientation sensor</string>
     <string name="toggleScreenTimeoutDescription">Set diferent screen timeouts</string>
     <string name="toggleAirplaneDescription">Enable/disable airplane mode</string>
+    <string name="toggleFlashlightDescription">Enable/disable flashlight mode</string>
     <string name="toggleLockScreenDescription">Enable/disable lock screen</string>
 
 
@@ -2788,6 +2790,7 @@ found in the list of installed applications.</string>
     <string name="title_toggle_networkmode">Toggle 2G/3G</string>
     <string name="title_toggle_autorotate">Toggle Orientation</string>
     <string name="title_toggle_airplane">Toggle Airplane mode</string>
+    <string name="title_toggle_flashlight">Toggle LED flashlight</string>
     <string name="title_toggle_sleep">Go to sleep</string>
     <string name="title_button_modes">Button modes</string>
     <string name="pref_brightness_mode_title">Brightness modes</string>
@@ -2798,6 +2801,8 @@ found in the list of installed applications.</string>
     <string name="pref_screentimeout_mode_summary">Choose how the Screentimeout button changes modes</string>
     <string name="pref_ring_mode_title">Sound modes</string>
     <string name="pref_ring_mode_summary">Choose how the sound button changes modes</string>
+    <string name="pref_flash_mode_title">Flash mode</string>
+    <string name="pref_flash_mode_summary">Choose High / Death Ray(Evo)</string>
     <string name="widget_max_buttons">6 is the max amount of buttons.</string>    
     
     <!-- Power picker v2 -->

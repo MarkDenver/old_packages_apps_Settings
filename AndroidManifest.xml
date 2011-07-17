@@ -853,6 +853,11 @@
         </activity>
 
   		<activity
+      		android:name="com.android.settings.widget.FlashlightActivity"
+      		android:label="@string/gadget_title">
+		</activity>
+
+		<activity
       		android:name="com.android.settings.widget.WidgetSettings"
       		android:label="@string/gadget_title">
 	      <intent-filter>
@@ -874,6 +879,7 @@
                 <action android:name="android.intent.action.USER_PRESENT" />
                 <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
                 <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+		<action android:name="net.cactii.flash2.TORCH_STATE_CHANGED" />
                 <action android:name="android.location.PROVIDERS_CHANGED" />
                 <action android:name="com.android.sync.SYNC_CONN_STATUS_CHANGED" />
             </intent-filter>

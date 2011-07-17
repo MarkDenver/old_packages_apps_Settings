@@ -35,6 +35,8 @@ public abstract class WidgetButton {
 
     public static final int BUTTON_AUTO_ROTATE = 9;
 
+    public static final int BUTTON_FLASHLIGHT = 10;
+
     public static final int BUTTON_AIRPLANE = 11;
 
     public static final int BUTTON_LOCK_SCREEN = 12;
