@@ -2732,9 +2732,9 @@ found in the list of installed applications.</string>
     <string name="ringModeVibrateAsOn">Vibrate as ON</string>
     <string name="monitorDataRoaming">Monitor Data Roaming</string>
     <string name="autoEnableBluetoothWithPower">Ext. PWR enables Bluetooth</string>
-    <string name="autoDisableBluetoothWithPower">Ext. PWD disables Bluetooth</string>
-    <string name="autoEnableWifiWithPower">Ext. PWD enables Wifi</string>
-    <string name="autoDisableWifiWithPower">Ext. PWD disables Wifi</string>
+    <string name="autoDisableBluetoothWithPower">Ext. PWR disables Bluetooth</string>
+    <string name="autoEnableWifiWithPower">Ext. PWR enables Wifi</string>
+    <string name="autoDisableWifiWithPower">Ext. PWR disables Wifi</string>
 
     <string name="autoDisable3GDescription">2G when mobile data is disabled</string>
     <string name="autoEnable3GDescription">3G when mobile data is enabled</string>
@@ -2768,12 +2768,12 @@ found in the list of installed applications.</string>
     <!-- Being Mark's specific strings -->
     <!-- Display settings -->
     <string name="notification_color_title">Notification color</string>
-    <string name="notification_color_summary">Change the LED notification color</string>
+    <string name="notification_color_summary">Change the Trackball notification color</string>
     <string name="notification_pulse_title">Pulse notification light</string>
     <string name="notification_pulse_summary">Pulse trackball light repeatedly for new notifications</string>
     <string name="notification_blink_title">Blink notification light</string>
-    <string name="notification_blink_summary">Blink the LED notification repeatedly</string>
-    <string name="notification_always_on_title">Always enable notification light</string>
+    <string name="notification_blink_summary">Blink the trackball notification repeatedly at a faster speed</string>
+    <string name="notification_always_on_title">Notifications always ON</string>
     <string name="notification_always_on_summary">Enable notification LED while screen is on</string>
     <string name="notification_charging_title">Charging light</string>
     <string name="notification_charging_summary">Enable the amber light while charging</string>
