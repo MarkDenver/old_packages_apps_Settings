@@ -49,6 +49,7 @@ public class SoundSettings extends PreferenceActivity implements
 
     private static final String KEY_SILENT = "silent";
     private static final String KEY_VIBRATE = "vibrate";
+    private static final String KEY_SILENT_CONTROL = "silent_control";
     private static final String KEY_DTMF_TONE = "dtmf_tone";
     private static final String KEY_SOUND_EFFECTS = "sound_effects";
     private static final String KEY_HAPTIC_FEEDBACK = "haptic_feedback";
@@ -71,6 +72,7 @@ public class SoundSettings extends PreferenceActivity implements
      * setting.
      */
     private ListPreference mVibrate;
+    private CheckBoxPreference mSilentControl;
     private CheckBoxPreference mDtmfTone;
     private CheckBoxPreference mSoundEffects;
     private CheckBoxPreference mHapticFeedback;
@@ -108,6 +110,10 @@ public class SoundSettings extends PreferenceActivity implements
 
         mVibrate = (ListPreference) findPreference(KEY_VIBRATE);
         mVibrate.setOnPreferenceChangeListener(this);
+
+	mSilentControl = (CheckBoxPreference) findPreference(KEY_SILENT_CONTROL);
+	mSilentControl.setChecked(Settings.System.getInt(resolver,
+		Settings.System.VOLUME_CONTROL_SILENT, 0) != 0);
 
         mDtmfTone = (CheckBoxPreference) findPreference(KEY_DTMF_TONE);
         mDtmfTone.setPersistent(false);
@@ -269,6 +275,11 @@ public class SoundSettings extends PreferenceActivity implements
                 mAudioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
             }
             updateState(false);
+
+	} else if (preference == mSilentControl) {
+	    Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_CONTROL_SILENT,
+		    mSilent.isChecked() ? 1 : 0);
+
         } else if (preference == mDtmfTone) {
             Settings.System.putInt(getContentResolver(), Settings.System.DTMF_TONE_WHEN_DIALING,
                     mDtmfTone.isChecked() ? 1 : 0);

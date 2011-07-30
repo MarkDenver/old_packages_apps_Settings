@@ -36,6 +36,11 @@
             android:entries="@array/vibrate_entries"
             android:entryValues="@array/vibrate_values" />
 
+    <CheckBoxPreference
+            android:key="silent_control"
+            android:title="@string/silent_control_title"
+            android:summary="@string/silent_control_summary" />
+
     <com.android.settings.RingerVolumePreference
             android:key="ring_volume"
             android:dependency="silent"
