@@ -1078,7 +1078,6 @@
     <string name="notification_sound_title">Notification ringtone</string>
     <!-- Sound settings screen, setting option summary text -->
     <string name="notification_sound_summary">""</string>
-    <!-- Sound settings screen, notification light repeat pulsing title -->
     <!-- Sound settings screen, the title of the volume bar to adjust the incoming call volume -->
     <string name="incoming_call_volume_title">Ringtone</string>
     <!-- Sound settings screen, the title of the volume bar to adjust the notification volume -->
