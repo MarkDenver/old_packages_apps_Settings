@@ -99,8 +99,8 @@ public class DisplaySettings extends PreferenceActivity implements
 		//com.android.internal.R.bool.config_amber_green_light);
 		
         if (amberGreenLight) {
-            mDisplaySettings.removePreference(mNotificationPulse);
-			
+            mNotificationPulse.setChecked(Settings.System.getInt(resolver,
+				Settings.System.NOTIFICATION_LIGHT_PULSE, 1) == 1);
             mNotificationBlink.setChecked(Settings.System.getInt(resolver,
 				Settings.System.NOTIFICATION_LIGHT_BLINK, 1) == 1);
             mNotificationBlink.setOnPreferenceChangeListener(this);
@@ -114,6 +114,7 @@ public class DisplaySettings extends PreferenceActivity implements
             mNotificationCharging.setOnPreferenceChangeListener(this);
 			
         } else {
+	    mDisplaySettings.removePreference(mNotificationPulse);
             mDisplaySettings.removePreference(mNotificationBlink);
             mDisplaySettings.removePreference(mNotificationAlwaysOn);
             mDisplaySettings.removePreference(mNotificationCharging);
